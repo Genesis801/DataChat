@@ -1,10 +1,17 @@
-from langchain.document_loaders import DirectoryLoader
+import openai
+from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 import os
 import shutil
+import chromadb
+
+os.environ['OPENAI_API_KEY'] = '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'
+
+openai.api_key = "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"
+
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data/books"

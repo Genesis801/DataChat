@@ -1,9 +1,15 @@
 import argparse
 from dataclasses import dataclass
 from langchain.vectorstores.chroma import Chroma
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
+import os
+import openai
+
+os.environ['OPENAI_API_KEY'] = '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'
+
+openai.api_key = "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"
 
 CHROMA_PATH = "chroma"
 
@@ -30,7 +36,7 @@ def main():
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
     # Search the DB.
-    results = db.similarity_search_with_relevance_scores(query_text, k=3)
+    results = db.similarity_search_with_relevance_scores(query_text, k=1)
     if len(results) == 0 or results[0][1] < 0.7:
         print(f"Unable to find matching results.")
         return
@@ -44,7 +50,8 @@ def main():
     response_text = model.predict(prompt)
 
     sources = [doc.metadata.get("source", None) for doc, _score in results]
-    formatted_response = f"Response: {response_text}\nSources: {sources}"
+    print("--------------------------------------------------------------------------------")
+    formatted_response = f"Response: {response_text}\n------------------------------------------\nSources: {sources}"
     print(formatted_response)
 
 
