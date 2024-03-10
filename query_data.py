@@ -7,9 +7,9 @@ from langchain.prompts import ChatPromptTemplate
 import os
 import openai
 
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = '<API_KEY>'
 
-openai.api_key = "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"
+openai.api_key = "<API_KEY>"
 
 CHROMA_PATH = "chroma"
 
